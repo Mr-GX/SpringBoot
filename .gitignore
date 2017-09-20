@@ -1,7 +1,5 @@
 .gradle
 /build/
-/out/
-out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -28,3 +26,6 @@ nbdist/
 
 # Mac
 .DS_Store
+
+# Gradle
+/out
