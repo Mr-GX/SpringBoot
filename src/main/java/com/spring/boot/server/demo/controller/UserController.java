@@ -13,10 +13,10 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<User> getUserList() {
-        User user1 = new User(1L, "123456", 37);
-        User user2 = new User(2L, "654321", 27);
-        users.put(user1.getId(), user1);
-        users.put(user2.getId(), user2);
+//        User user1 = new User(1L, "123456", 37);
+//        User user2 = new User(2L, "654321", 27);
+//        users.put(user1.getId(), user1);
+//        users.put(user2.getId(), user2);
         return new ArrayList<>(users.values());
     }
 

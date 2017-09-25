@@ -5,6 +5,9 @@ public class User {
     private String mobile;
     private int age;
 
+    public User() {
+    }
+
     public User(long id, String mobile, int age) {
         this.id = id;
         this.mobile = mobile;
