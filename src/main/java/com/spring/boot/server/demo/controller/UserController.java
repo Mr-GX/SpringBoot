@@ -2,6 +2,7 @@ package com.spring.boot.server.demo.controller;
 
 import com.spring.boot.server.demo.model.User;
 import com.spring.boot.server.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/users")
 public class UserController {
 
+    @Autowired
     private UserRepository users;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
