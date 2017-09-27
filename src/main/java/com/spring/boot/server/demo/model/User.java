@@ -1,24 +1,33 @@
 package com.spring.boot.server.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//This is the entity class which Hibernate will automatically translate into a table.
+@Entity // This tells Hibernate to make a table out of this class
 public class User {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String mobile;
     private int age;
 
     public User() {
     }
 
-    public User(long id, String mobile, int age) {
+    public User(Long id, String mobile, int age) {
         this.id = id;
         this.mobile = mobile;
         this.age = age;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
