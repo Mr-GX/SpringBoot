@@ -1,47 +1,65 @@
 package com.spring.boot.server.demo.controller;
 
+import com.spring.boot.server.demo.advice.ApiAdviceHandler;
 import com.spring.boot.server.demo.model.User;
 import com.spring.boot.server.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
-
+    @Autowired
+    private Environment env;
     @Autowired
     private UserRepository users;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public Iterable<User> getUserList() {
-        // This returns a JSON or XML with the users
-        return users.findAll();
+    public ApiAdviceHandler<?> getUserList() {
+        // This returns a JSON or XML with the user
+        return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), users.findAll());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute User user) {
-        users.save(user);
-        return "success";
+    public ApiAdviceHandler<?> createUser(@ModelAttribute User user) {
+        User save = users.save(user);
+        if (save != null)
+            return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), null);
+        else
+            return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "save failed!", null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUserInfo(@PathVariable Long id) {
-        return users.findOne(id);
+    public ApiAdviceHandler<?> getUserInfo(@PathVariable Long id) {
+        User one = users.findOne(id);
+        if (one != null)
+            return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), one);
+        else
+            return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "user not exist!", null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
+    public ApiAdviceHandler<?> updateUser(@PathVariable Long id, @ModelAttribute User user) {
         User u = users.findOne(id);
         u.setMobile(user.getMobile());
         u.setAge(user.getAge());
-        users.save(u);
-        return "success";
+        User save = users.save(u);
+        if (save != null)
+            return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), u.getId());
+        else
+            return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "update failed!", null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delUser(@PathVariable Long id) {
+    public ApiAdviceHandler<?> delUser(@PathVariable Long id) {
         users.delete(id);
-        return "success";
+        return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), null);
     }
 }
