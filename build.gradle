@@ -25,8 +25,9 @@ repositories {
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter'
-	compile 'org.springframework.boot:spring-boot-starter-web'
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile 'org.springframework.boot:spring-boot-starter-thymeleaf' //渲染web视图模版
+	compile 'org.springframework.boot:spring-boot-starter-web'	//web构建，以及RESTful API
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa' //使用model操作数据库
 	runtime 'mysql:mysql-connector-java'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

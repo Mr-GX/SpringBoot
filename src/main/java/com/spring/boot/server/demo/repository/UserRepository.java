@@ -2,7 +2,6 @@ package com.spring.boot.server.demo.repository;
 
 import com.spring.boot.server.demo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
