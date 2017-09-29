@@ -14,10 +14,14 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
+    private final Environment env;
+    private final UserRepository users;
+
     @Autowired
-    private Environment env;
-    @Autowired
-    private UserRepository users;
+    public UserController(Environment env, UserRepository users) {
+        this.env = env;
+        this.users = users;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ApiAdviceHandler<?> getUserList() {
