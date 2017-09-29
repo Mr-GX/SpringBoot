@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ApiAdviceHandler<?> createUser(@ModelAttribute User user) {
+    public ApiAdviceHandler<?> createUser(@RequestBody User user) {
         Logger.getLogger("test").info(user.toString());
         User new_user = new User();
         new_user.setMobile(user.getMobile());
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ApiAdviceHandler<?> updateUser(@PathVariable Long id, @ModelAttribute User user) {
+    public ApiAdviceHandler<?> updateUser(@PathVariable Long id, @RequestBody User user) {
         Logger.getLogger("test").info(user.toString());
         User u = users.findOne(id);
         if (u == null)
