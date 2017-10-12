@@ -28,6 +28,7 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf' //渲染web视图模版
 	compile 'org.springframework.boot:spring-boot-starter-web'	//web构建，以及RESTful API
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa' //使用model操作数据库
+	compile 'org.springframework.boot:spring-boot-starter-security'
 	runtime 'mysql:mysql-connector-java'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
-    private final Environment env;
-    private final UserRepository users;
-
     @Autowired
-    public UserController(Environment env, UserRepository users) {
-        this.env = env;
-        this.users = users;
+    private Environment env;
+    @Autowired
+    private UserRepository users;
+
+
+    public UserController() {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -34,7 +34,7 @@ public class UserController {
         Logger.getLogger("test").info(user.toString());
         User new_user = new User();
         new_user.setMobile(user.getMobile());
-        new_user.setAge(user.getAge());
+        new_user.setPwd(user.getPwd());
         User save = users.save(new_user);
         if (save != null)
             return new ApiAdviceHandler<>(HttpStatus.OK.value(), env.getProperty("success"), save.getId());
@@ -58,7 +58,7 @@ public class UserController {
         if (u == null)
             return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "user not exist!", null);
         u.setMobile(user.getMobile());
-        u.setAge(user.getAge());
+        u.setPwd(user.getPwd());
         User save = users.save(u);
         Logger.getLogger("test").info(u.toString());
         if (save != null)

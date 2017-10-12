@@ -12,15 +12,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String mobile;
-    private int age;
+    private String pwd;
 
     public User() {
     }
 
-    public User(Long id, String mobile, int age) {
-        this.id = id;
+    public User(String mobile, String pwd) {
         this.mobile = mobile;
-        this.age = age;
+        this.pwd = pwd;
     }
 
     public Long getId() {
@@ -39,12 +38,12 @@ public class User {
         this.mobile = mobile;
     }
 
-    public int getAge() {
-        return age;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     @Override
@@ -52,7 +51,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", mobile='" + mobile + '\'' +
-                ", age=" + age +
+                ", pwd=" + pwd +
                 '}';
     }
 }

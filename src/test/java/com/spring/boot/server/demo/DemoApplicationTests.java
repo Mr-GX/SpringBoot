@@ -22,7 +22,7 @@ public class DemoApplicationTests {
     @Test
     public void testUserController() throws Exception {
         mvc.perform(get("/users/")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().string("[]"));
-        mvc.perform(post("/users/").param("id", "1").param("mobile","123456").param("age","27"))
+        mvc.perform(post("/users/").param("id", "1").param("mobile","18511280360").param("pwd","$2a$10$ul3eNTrlqdB6A.tp7dUpBuITgNz3ei30mz5OAOiqMcAw3zwGwVW1e"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().string("success"));
     }
 

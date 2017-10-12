@@ -12,7 +12,7 @@ class ExceptionAdviceHandler {
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         ModelAndView mav = new ModelAndView("error");
-        Logger.getLogger("test").info("logger test!!!");
+        Logger.getLogger("test").info("logger test!!!"+e.getLocalizedMessage());
         mav.addObject("e", e);
         mav.addObject("url", req.getRequestURL());
         return mav;
