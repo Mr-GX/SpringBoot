@@ -11,7 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configurable
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http);
@@ -23,11 +23,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll();
-//                .antMatchers(HttpMethod.GET, "/users/").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated();
 //                .and()
-//                .authorizeRequests()
-//                .anyRequest().authenticated();
+//                .addFilterBefore();
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.spring.boot.server.demo.controller;
 
+import com.spring.boot.server.demo.advice.ApiAdviceHandler;
+import com.spring.boot.server.demo.model.User;
 import com.spring.boot.server.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -35,5 +37,22 @@ public class EncryptController {
     @RequestMapping("/compare_pwd")
     public boolean compare() {
         return new BCryptPasswordEncoder().matches("12345678", users.findOne(1L).getPwd());
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ApiAdviceHandler login(@RequestBody User user) {
+        User byMobile = users.findByMobile(user.getMobile());
+        if (byMobile != null)
+            if (new BCryptPasswordEncoder().matches(user.getPwd(), byMobile.getPwd()))
+                return new ApiAdviceHandler<>(HttpStatus.OK.value(), "success", true);
+            else
+                return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "password is wrong", false);
+        else
+            return new ApiAdviceHandler<>(HttpStatus.NOT_FOUND.value(), "can not find this user", false);
+    }
+
+    @RequestMapping(value = "/login_form", method = RequestMethod.POST)
+    public String login(@RequestParam(name = "mobile") String mobile, @RequestParam(name = "pwd") String pwd) {
+        return mobile + pwd;
     }
 }
